@@ -1,0 +1,204 @@
+data_pengunjung = {} #diraktori
+
+def menu():
+    print('-'*40)
+    print("DAFTAR MENU TIKET WISATA".center(40,' '))
+    print('-'*40)
+    print("1. Cek Daftar Tiket")
+    print("2. Harga Tiket")
+    print("3. Data Diri Pengunjung")
+    print("4. Cek Data Pengunjung")
+    print("5. Menghapus Data Pengunjung")
+    print("6. Keluar")
+
+    pilihan = input("\nMasukkan angka yang dipilih : ")
+    print()
+    if pilihan == '1':
+        daftar_tiket()
+    elif pilihan == '2':
+        harga_tiket()
+    elif pilihan == '3':
+        data_diri()
+    elif pilihan == '4':
+        cek_data()
+    elif pilihan == '5':
+        hapus_data()
+    elif pilihan == '6':
+        keluar()
+    else:
+        print("Angka yang anda pilih tidak valid")
+        print('-'*40)
+        menu()
+
+def daftar_tiket():
+    global tiket_terpilih
+    print('-'*90)
+    print("DAFTAR TIKET".center(90,' '))
+    print('-'*90)
+    print("1. Tiket Reguler")
+    print("   Akses semua wahana")
+    print("2. Tiket Fast track")
+    print("   Akses semua wahana tanpa antrian panjang")
+    print("3. Tiket happy 5 orang (Reguler)")
+    print("   *Khusus dewasa")
+    print("   Akses semua wahana dengan harga yang lebih terjangkau")
+    print("4. Tiket ceria 5 orang (Fast track)")
+    print("   *Khusus dewasa")
+    print("   Akses semua wahana dengan harga yang lebih terjangkau dan tanpa antrian panjang")
+    print("5. Tiket holiday 3 orang (Reguler)")
+    print("   *Khusus dewasa")
+    print("   Akses semua wahana dengan harga lebih terjangkau")
+    j = int(input("\nSilakan pilih tiket yang ingin Anda beli (1-5): "))
+    tiket = [
+        "Tiket Reguler",
+        "Tiket Fast track",
+        "Tiket happy 5 orang (Reguler)",
+        "Tiket ceria 5 orang (Fast track)",
+        "Tiket holiday 3 orang (Reguler)"
+    ]
+    if j in range(1, 6):
+        tiket_terpilih = tiket[j - 1]
+        print(f"Anda telah memilih {tiket_terpilih}")
+    else:
+        print("Pilihan tidak valid. Silakan coba lagi.")
+    print('-'*90)
+    print()
+    
+    menu()
+
+def harga_tiket():
+    global golongan, hari, harga
+    print('-'*60)
+    print("HARGA TIKET".center(60,' '))
+    print('-'*60)
+    print("1. Tiket Reguler")
+    print("   Anak-anak (usia 1th - 5th): weekday 60000 weekend 80000")
+    print("   Dewasa (usia 5th - keatas): weekday 80000 weekend 100000")
+    print("2. Tiket Fast track")
+    print("   Anak-anak (usia 1th - 5th): weekday 85000 weekend 105000")
+    print("   Dewasa (usia 5th - keatas): weekday 105000 weekend 130000")
+    print("3. Tiket Bundling 5 orang (Reguler)")
+    print("   Dewasa (usia 5th - keatas): weekday 350000 weekend 450000")
+    print("4. Tiket Bundling 5 orang (Fast track)")
+    print("   Dewasa (usia 5th - keatas): weekday 475000 weekend 600000")
+    print("5. Tiket Holiday 3 orang (Reguler)")
+    print("   Dewasa (usia 5th - keatas): weekday 80000 weekend 100000")
+    
+    tiket_pilihan = int(input("\nSilahkan pilih tiket yang akan dibeli (1-5) : "))
+    hari = input("Masukkan hari (Weekday / Weekend)           : ").lower()
+    golongan = input("Masukkan golongan (Anak / Dewasa)           : ").lower()
+
+    harga = 0
+    if tiket_pilihan == 1:
+        if golongan == "anak":
+            harga = 60000 if hari == "weekday" else 80000
+        else:
+            harga = 80000 if hari == "weekday" else 100000    
+    elif tiket_pilihan == 2:
+        if golongan == "anak":
+            harga = 85000 if hari == "weekday" else 105000
+        else:
+            harga = 105000 if hari == "weekday" else 130000
+    elif tiket_pilihan == 3:
+        if golongan == "dewasa":
+            harga = 350000 if hari == "weekday" else 450000
+        else:
+            print("Tiket Bundling 5 orang (Reguler) *hanya untuk dewasa.")
+            harga = 0    
+    elif tiket_pilihan == 4:
+        if golongan == "dewasa":
+            harga = 475000 if hari == "weekday" else 600000
+        else:
+            print("Tiket Bundling 5 orang (Fast track) *hanya untuk dewasa.")
+            harga = 0    
+    elif tiket_pilihan == 5:
+        if golongan == "dewasa":
+            harga = 80000 if hari == "weekday" else 100000
+        else:
+            print("Tiket Holiday 3 orang (Reguler) *hanya untuk dewasa.")
+            harga = 0
+
+    if harga != 0:
+        print(f"Harga tiket                                 : {harga}")
+    print('-'*60)
+    print()
+
+    menu()
+
+def data_diri():
+    global tiket_terpilih, golongan, hari, harga
+    print('-'*100)
+    print("DATA DIRI PENGUNJUNG".center(100,' '))
+    print('-'*100)
+    i = int(input("Masukkan jumlah pengunjung : "))
+    print("*Masukkan data diri sesuai dengan KTP jika belum memiliki bisa menggunakan tanda bukti lainnya")
+    for _ in range(i):
+        Nama = input("Nama           : ")
+        Usia = input("Usia           : ")
+        Jenis_kelamin = input("Jenis Kelamin  : ")
+        No_telepon = input("No_Telepon     : ")
+        Alamat = input("Alamat         : ")
+        Tiket = tiket_terpilih
+        Golongan = golongan
+        Hari = hari
+        Harga = harga
+
+        data_pengunjung[Nama] = {
+            'Usia': Usia,
+            'Jenis Kelamin': Jenis_kelamin,
+            'No Telepon': No_telepon,
+            'Alamat': Alamat,
+            'Tiket': Tiket,
+            'Golongan': Golongan,
+            'Hari':Hari,
+            'Harga': Harga
+        }
+
+        print('-'*100)
+        print()   
+    
+    menu()
+
+def cek_data():
+    print('-'*50)
+    print("CEK DATA PENGUNJUNG".center(50,' '))
+    print('-'*50)
+    Nama = input("Masukkan nama pengunjung : ")
+    if Nama in data_pengunjung:
+        data = data_pengunjung[Nama]
+        print(f"Nama          : {Nama}")
+        print(f"Usia          : {data['Usia']}")
+        print(f"Jenis Kelamin : {data['Jenis Kelamin']}")
+        print(f"No Telepon    : {data['No Telepon']}")
+        print(f"Alamat        : {data['Alamat']}")
+        print(f"Tiket         : {data['Tiket']}")
+        print(f"Golongan      : {data['Golongan']}")
+        print(f"Hari          : {data['Hari']}")
+        print(f"Harga         : {data['Harga']}")
+    else:
+        print("Data pengunjung tidak ditemukan")
+    print('-'*50)
+    print()
+
+    menu()
+
+def hapus_data():
+    print('-'*50)
+    print("HAPUS DATA PENGUNJUNG".center(50,' '))
+    print('-'*50)
+    Nama = input("Masukkan nama pengunjung yang akan dihapus : ")
+    if Nama in data_pengunjung:
+        del data_pengunjung[Nama]
+        print(f"Data pengunjung dengan nama {Nama} telah dihapus")
+    else:
+        print("Data pengunjung tidak ditemukan")
+    print('-'*50)
+    print()
+
+    menu()
+
+def keluar():
+    print("Terima kasih telah berkunjung")
+    exit()
+
+menu()
